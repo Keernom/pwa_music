@@ -6,9 +6,9 @@ export default function MusicTrack({ trackName, isLoaded, handleClick }) {
         <div className={style.musicTrack}>
             <span>{trackName}</span>
             <Button
-                className={isLoaded ? "TrackButtonLoaded" : "TrackButton"}
+                className={style.trackButton}
                 onClick={handleClick}
-                value={isLoaded ? 'TrackButtonLoaded' : 'TrackButtonНеЗагрузился'}
+                value={isLoaded ? <i class="fa fa-cloud-download fa-lg"></i> : <i class="fa fa-play fa-lg"></i>}
             />
         </div>
     )

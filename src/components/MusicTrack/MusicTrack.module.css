@@ -1,4 +1,18 @@
 .musicTrack {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+    background-color: darkslategrey;
+    padding-left: 1em;
+    border-radius: 5px 2em 2em 5px;
+}
+
+.trackButton {
+    display: flex;
+    width: 3em;
+    aspect-ratio: 1;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
