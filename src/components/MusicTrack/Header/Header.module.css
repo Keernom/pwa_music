@@ -1,0 +1,16 @@
+.header_div {
+    display: flex;
+    position: absolute;
+    top: 0;
+    align-items: center;
+    width: 80vw;
+}
+
+.header_title {
+    margin: 1em 0 1em 0;
+}
+
+.header_button {
+    margin: 1em;
+    padding: 0.5em;
+}
