@@ -54,7 +54,9 @@ export default function MusicTrack({ trackId, trackName, handleClick }) {
         getRequest.onsuccess = () => {
             let record = getRequest.result
             let audioURL = URL.createObjectURL(record.mp3)
-            audioObj.src = audioURL
+            if (!audioObj.src) {
+                audioObj.src = audioURL
+            }
             audioObj.volume = VOLUME
 
             audioObj.play()
