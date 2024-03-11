@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
   text-align: center;
 }
 
@@ -44,7 +44,12 @@
   color: #888;
 }
 
+.tracksDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .mainDiv {
-  width: 80vw;
-  margin: auto;
+  width: 60vw;
 }

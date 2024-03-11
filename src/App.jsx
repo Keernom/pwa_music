@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import MusicTrack from './components/MusicTrack/MusicTrack';
 import Header from './components/Header/Header';
-import Button from './components/Button';
 
 
 function App() {
@@ -12,9 +11,11 @@ function App() {
   return (
     <div className='mainDiv'>
       <Header tracksAction={setTracks} />
-      {
-        tracks.map((el) => { return <MusicTrack trackName={el} isLoaded={false} /> })
-      }
+      <div className='tracksDiv'>
+        {
+          tracks.map((el, key) => { return <MusicTrack key={key} trackName={el} /> })
+        }
+      </div>
     </div>
   )
 }

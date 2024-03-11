@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
+import { ConfigureIndexedDBs } from './services/IndexedDBService.js';
 
 const broadcastChannel = new BroadcastChannel("sw_channel");
 var sw;
@@ -23,10 +24,11 @@ window.addEventListener('load', async () => {
 
   }
 
+  ConfigureIndexedDBs()
+
   ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
       <App />
     </React.StrictMode>,
   )
 })
-
