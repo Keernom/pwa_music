@@ -19,8 +19,6 @@ window.addEventListener('load', async () => {
 
     broadcastChannel.addEventListener("message", ({ data }) => {
       console.log(data);
-      document.querySelector('.logs').insertAdjacentHTML('afterbegin', `<p>${data}</p>`)
-      document.querySelector('.logs').prepend('\n');
     });
 
   }

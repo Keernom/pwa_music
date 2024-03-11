@@ -1,25 +1,20 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import MusicTrack from './components/MusicTrack/MusicTrack';
-import Header from './components/MusicTrack/Header/Header';
+import Header from './components/Header/Header';
 import Button from './components/Button';
 
 
 function App() {
 
-  const getTrack = async () => {
-    const url = "https://5.nikpv.z8.ru/MobileDeviceOS/getcfg.php"
-
-    let res = await fetch(url)
-    console.log(res.json())
-  }
+  const [tracks, setTracks] = useState([])
 
   return (
     <div className='mainDiv'>
-      <Header />
-      <MusicTrack trackName={'бла'} isLoaded={false} />
-      <MusicTrack trackName={'бла-в-квадрате'} isLoaded={true} />
-      <Button handleClick={getTrack}></Button>
+      <Header tracksAction={setTracks} />
+      {
+        tracks.map((el) => { return <MusicTrack trackName={el} isLoaded={false} /> })
+      }
     </div>
   )
 }
