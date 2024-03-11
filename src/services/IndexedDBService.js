@@ -29,10 +29,16 @@ export const ConfigureIndexedDBs = () => {
     }
 }
 
+export const DeleteDB = () => {
+    if (db) {
+        db.deleteDatabase(DB_NAME)
+    }
+}
+
 export const GetContents = () => {
     return db.transaction(CONTENTS_NAME, "readwrite").objectStore(CONTENTS_NAME)
 }
 
 export const GetTracks = () => {
-    return db.transaction(TRACKS_NAME, "readwrite").objectStore(CONTENTS_NAME)
+    return db.transaction(TRACKS_NAME, "readwrite").objectStore(TRACKS_NAME)
 }

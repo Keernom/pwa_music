@@ -1,4 +1,4 @@
-import { GetContents } from "../../services/IndexedDBService";
+import { DeleteDB, GetContents } from "../../services/IndexedDBService";
 import Button from "../Button";
 import style from "./Header.module.css"
 

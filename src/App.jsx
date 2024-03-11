@@ -13,7 +13,7 @@ function App() {
       <Header tracksAction={setTracks} />
       <div className='tracksDiv'>
         {
-          tracks.map((el, key) => { return <MusicTrack key={key} trackName={el} /> })
+          tracks.map((el, key) => { return <MusicTrack key={key} trackId={key} trackName={el} /> })
         }
       </div>
     </div>
