@@ -7,15 +7,21 @@ export default function MusicTrack({ trackId, trackName, handleClick }) {
     const ON_SERVER = 'onServer'
     const READY_TO_PLAY = 'rtp'
     const PLAYING = 'playing'
+    const SLIDING = 'sliding'
 
     const VOLUME = 0.1
 
     const [trackState, setTrackState] = useState(ON_SERVER)
     const [audioObj, setAudio] = useState(new Audio())
+    const [sliderValue, setValue] = useState(0)
+
+    useEffect(() => {
+        audioObj.currentTime = sliderValue
+    }, [sliderValue])
 
     const btnClick = async () => {
         if (trackState == ON_SERVER) {
-            await downloadTrack();
+            await downloadTrack()
         }
         else if (trackState == READY_TO_PLAY) {
             playTrack()
@@ -58,7 +64,7 @@ export default function MusicTrack({ trackId, trackName, handleClick }) {
                 audioObj.src = audioURL
             }
             audioObj.volume = VOLUME
-
+            setValue(audioObj.currentTime)
             audioObj.play()
             setTrackState(PLAYING)
         }
@@ -71,14 +77,30 @@ export default function MusicTrack({ trackId, trackName, handleClick }) {
         else if (trackState == READY_TO_PLAY) {
             return <i className="fa fa-play fa-lg"></i>
         }
-        else if (trackState == PLAYING) {
+        else if (trackState == PLAYING || trackState == SLIDING) {
             return <i className="fa fa-solid fa-pause fa-lg"></i>
         }
     }
 
+    const onSliderChange = (e) => {
+        setValue(e.target.value)
+    }
+
+    const slider = trackState == ON_SERVER ? <></> :
+        <input
+            type="range"
+            min="0"
+            max={audioObj.duration}
+            value={sliderValue}
+            onInput={e => onSliderChange(e)}
+            onMouseDown={() => { audioObj.pause(); }}
+            onMouseUp={() => { audioObj.play(); setTrackState(PLAYING) }}
+            className="slider"></input>
+
     return (
         <div className={style.musicTrack}>
             <span>{trackName}</span>
+            {slider}
             <Button
                 className={style.trackButton}
                 handleClick={btnClick}
