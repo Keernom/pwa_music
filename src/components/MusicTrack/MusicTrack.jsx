@@ -5,6 +5,7 @@ import { GetTracks } from "../../services/IndexedDBService"
 
 export default function MusicTrack({ trackId, trackName, handleClick }) {
     const ON_SERVER = 'onServer'
+    const DOWNLOADING = 'downloading'
     const READY_TO_PLAY = 'rtp'
     const PLAYING = 'playing'
     const SLIDING = 'sliding'
@@ -38,6 +39,8 @@ export default function MusicTrack({ trackId, trackName, handleClick }) {
 
     const downloadTrack = async () => {
         const url = `https://5.nikpv.z8.ru/MobileDeviceOS/get.php?url=${trackName}.mp3`
+
+        setTrackState(DOWNLOADING)
 
         let fetchRes = await fetch(url, {
             headers: {
@@ -84,6 +87,13 @@ export default function MusicTrack({ trackId, trackName, handleClick }) {
         else if (trackState == PLAYING || trackState == SLIDING) {
             return <i className="fa fa-solid fa-pause fa-lg"></i>
         }
+        else if (trackState == DOWNLOADING) {
+            return (
+                <div className={style.rotateDiv}>
+                    <i className="fa fa-solid fa-spinner fa-lg"></i>
+                </div>
+            )
+        }
     }
 
     const onSliderChange = (e) => {
@@ -92,7 +102,7 @@ export default function MusicTrack({ trackId, trackName, handleClick }) {
 
     setInterval(() => setValue(audioObj.currentTime), INTERVAL)
 
-    const slider = trackState == ON_SERVER ? <></> :
+    const slider = trackState == ON_SERVER || trackState == DOWNLOADING ? <></> :
         <input
             type="range"
             min="0"

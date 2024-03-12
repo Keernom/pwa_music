@@ -29,3 +29,19 @@
 .slider:hover {
     opacity: 1;
 }
+
+.rotateDiv {
+    animation-name: rotate;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rotate {
+    0% {
+        rotate: 0deg;
+    }
+
+    100% {
+        rotate: 360deg;
+    }
+}
