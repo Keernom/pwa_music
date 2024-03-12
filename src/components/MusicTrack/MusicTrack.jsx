@@ -10,13 +10,17 @@ export default function MusicTrack({ trackId, trackName, handleClick }) {
     const SLIDING = 'sliding'
 
     const VOLUME = 0.1
+    const INTERVAL = 2500
 
     const [trackState, setTrackState] = useState(ON_SERVER)
     const [audioObj, setAudio] = useState(new Audio())
     const [sliderValue, setValue] = useState(0)
 
+
     useEffect(() => {
-        audioObj.currentTime = sliderValue
+        if (trackState == SLIDING) {
+            audioObj.currentTime = sliderValue
+        }
     }, [sliderValue])
 
     const btnClick = async () => {
@@ -64,13 +68,13 @@ export default function MusicTrack({ trackId, trackName, handleClick }) {
                 audioObj.src = audioURL
             }
             audioObj.volume = VOLUME
-            setValue(audioObj.currentTime)
+
             audioObj.play()
             setTrackState(PLAYING)
         }
     }
 
-    const GetIcon = () => {
+    const getIcon = () => {
         if (trackState == ON_SERVER) {
             return <i className="fa fa-cloud-download fa-lg"></i>
         }
@@ -86,6 +90,8 @@ export default function MusicTrack({ trackId, trackName, handleClick }) {
         setValue(e.target.value)
     }
 
+    setInterval(() => setValue(audioObj.currentTime), INTERVAL)
+
     const slider = trackState == ON_SERVER ? <></> :
         <input
             type="range"
@@ -93,19 +99,22 @@ export default function MusicTrack({ trackId, trackName, handleClick }) {
             max={audioObj.duration}
             value={sliderValue}
             onInput={e => onSliderChange(e)}
-            onMouseDown={() => { audioObj.pause(); }}
+            onMouseDown={() => { audioObj.pause(); setTrackState(SLIDING) }}
             onMouseUp={() => { audioObj.play(); setTrackState(PLAYING) }}
-            className="slider"></input>
+            className={style.slider}></input>
 
     return (
         <div className={style.musicTrack}>
             <span>{trackName}</span>
-            {slider}
-            <Button
-                className={style.trackButton}
-                handleClick={btnClick}
-                value={GetIcon()}
-            />
+            <div className={style.actionDiv}>
+                {slider}
+                <Button
+                    className={style.trackButton}
+                    handleClick={btnClick}
+                    value={getIcon()}
+                />
+            </div>
+
         </div>
     )
 }
